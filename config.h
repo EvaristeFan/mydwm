@@ -17,7 +17,12 @@ static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char col_cyan[]        = "#008cc4";
+static const char col_red[]         = "#bf616a";
+static const char col_Anti[]        = "#006400"; /* Dark green*/
+static const char col_Tom[]         = "#FF6347"; // Tomato red
+static const char col_Orange[]      = "#FF6100";
+static const char col_Lake[]        = "#800080"; // Lake purple
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
@@ -25,6 +30,11 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
 	[SchemeHid]  = { col_cyan,  col_gray1, col_cyan  },
+	[SchemeRed]  = { col_gray1, col_red, col_red },
+	[SchemeAnt]  = { col_gray1, col_Anti, col_Anti },
+	[SchemeTom]  = { col_gray1, col_Tom, col_Tom },
+	[SchemeOra]  = { col_gray1, col_Orange, col_Orange },
+	[SchemeLak]  = { col_gray1, col_Lake, col_Lake },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
