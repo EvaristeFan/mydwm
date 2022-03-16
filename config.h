@@ -89,6 +89,7 @@ static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34
 
 static const char *suspendcmd[]  = { "/home/pang/scripts/suspend.sh", NULL };
 static const char *screenshotcmd[] = { "flameshot", "gui", NULL };
+static const char *wintranscmd[] = { "/home/pang/scripts/window-trans.sh", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -106,6 +107,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ Mod4Mask,                     XK_b,      spawn,          {.v = wpcmd } },
 	{ MODKEY,                       XK_Print,  spawn,          {.v = screenshotcmd } },
+        { Mod4Mask,                     XK_t,      spawn,          {.v = wintranscmd } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
