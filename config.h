@@ -36,6 +36,20 @@ static const char *colors[][3]      = {
 	[SchemeOra]  = { col_gray1, col_Orange, col_Orange },
 	[SchemeLak]  = { col_gray1, col_Lake, col_Lake },
 };
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger", NULL };
+const char *spcmd3[] = {"keepassxc", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spterm",      spcmd1},
+	{"spranger",    spcmd2},
+	{"keepassxc",   spcmd3},
+};
+
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
 	[SchemeNorm] = { OPAQUE, baralpha, borderalpha },
@@ -53,6 +67,9 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            1,           -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+	{ NULL,		  "spterm",		NULL,		SPTAG(0),		1,			 -1 },
+	{ NULL,		  "spfm",		NULL,		SPTAG(1),		1,			 -1 },
+	{ NULL,		  "keepassxc",	NULL,		SPTAG(2),		0,			 -1 },
 };
 
 /* layout(s) */
@@ -84,18 +101,17 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *browsercmd[]  = { "firefox", NULL };
 static const char *wpcmd[]  = { "/home/pang/scripts/wp-change.sh", NULL };
-static const char scratchpadname[] = "scratchpad";
-static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
 static const char *suspendcmd[]  = { "/home/pang/scripts/suspend.sh", NULL };
 static const char *screenshotcmd[] = { "flameshot", "gui", NULL };
-static const char *wintranscmd[] = { "/home/pang/scripts/window-trans.sh", NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ Mod4Mask,                     XK_p,      spawn,          {.v = browsercmd } },
-	{ MODKEY,                       XK_grave,  togglescratch,  {.v = scratchpadcmd } },
+	{ MODKEY,            		XK_grave,  togglescratch,  {.ui = 0 } },
+	{ MODKEY,            		XK_u,	   togglescratch,  {.ui = 1 } },
+	{ MODKEY,            		XK_x,	   togglescratch,  {.ui = 2 } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ Mod4Mask,                     XK_q,      spawn,          {.v = suspendcmd } },
 	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
@@ -107,7 +123,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ Mod4Mask,                     XK_b,      spawn,          {.v = wpcmd } },
 	{ MODKEY,                       XK_Print,  spawn,          {.v = screenshotcmd } },
-        { Mod4Mask,                     XK_t,      spawn,          {.v = wintranscmd } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY|Mod4Mask,              XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
@@ -153,7 +168,7 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkClientWin,         MODKEY,         Button1,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
